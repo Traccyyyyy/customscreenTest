@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoahFace Kiosk</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        .buttons{
+            display: flex;
+            justify-content:center;
+            align-items: center;
+        }
+    </style>
+    <!-- Import the Lit library -->
+    <script type="module">
+        import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';   
+        // Import our custom components
+        import './noahface-handler.js';
+        import './clockin-type.js';
+        import './customize-greeting.js'
+        import './clock-out.js';
+    </script>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- NoahFace Message Handler (invisible component) -->
+        <noahface-handler ></noahface-handler>
+        
+        <!-- User Greeting Component -->
+        <customize-greeting  showFullName="true"></customize-greeting>
+        <div class="buttons">
+            <clockin-type class="clockIn"></clockin-type>
+            <clock-out class="clockOut"></clock-out>
+        </div>
+    </div>
+        <script>
+          const clockInElement = document.querySelector('.clockIn');
+          const clockOutElement = document.querySelector('.clockOut');
+        
+          clockInElement.addEventListener('noahface-log-event', (event) => {
+            if (event.detail.type === 'clockIn') {
+              clockOutElement._clockedIn = true;
+            }
+          });
+        
+          clockOutElement.addEventListener('noahface-log-event', (event) => {
+            if (event.detail.type === 'clockOut') {
+              clockInElement._clockIn = false;
+            }
+          });
+        </script>
+
+
+    <script>
+        // This script can be used to simulate NoahFace data for testing purposes
+        // Comment out or remove in production
+        if (typeof NoahFace === 'undefined') {
+            window.NoahFace = {
+                org: "Test Organization",
+                site: "Test Site",
+                firstname: "John",
+                lastname: "Doe",
+                temperature: "36.6",
+                elevated: "false",
+                type: "",
+                eventtime: new Date().toLocaleTimeString(),
+                details:""
+            };
+        }
+    </script>
+</body>
+</html>
