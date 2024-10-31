@@ -1,15 +1,16 @@
 {
-  "name": "clock-in",
-  "version": "1.0.0",
-  "description": "",
-  "main": "noahface-handler.js",
+  "name": "custom-screen",
+  "version": "0.0.1-beta",
+  "type": "module",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "node --watch server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "lit": "^3.2.1"
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.48.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
