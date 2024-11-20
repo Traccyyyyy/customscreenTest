@@ -54,7 +54,7 @@ export class customizeGreeting extends LitElement {
 
   loadNoahFaceData() {
     if (typeof NoahFace !== 'undefined') {
-      // this.noahFaceData = structuredClone(window.NoahFace);
+       this.noahFaceData = {...window.NoahFace};
     } else {
       console.warn('NoahFace data not available');
     }
@@ -73,7 +73,7 @@ export class customizeGreeting extends LitElement {
 
   render() {
     const { firstname, lastname, org, site, temperature, elevated, eventtype, eventtime, eventdetails } = this.noahFaceData;
-
+    
     return html`
       ${this.showGreeting ? html`<h2>${this.greeting}, ${window.NoahFace.firstname|| 'Guest'}${this.showFullName && lastname ? ` ${window.NoahFace.lastname}` : ''}!</h2>` : ''}
       ${this.showFullName && firstname ? html`<p>First Name: ${window.NoahFace.firstname}</p>
