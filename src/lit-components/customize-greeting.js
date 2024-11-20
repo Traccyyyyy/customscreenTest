@@ -55,11 +55,6 @@ export class customizeGreeting extends LitElement {
   loadNoahFaceData() {
     if (typeof NoahFace !== 'undefined') {
       this.noahFaceData = structuredClone(window.NoahFace);
-          //  this.data = fetchedData.map(item => ({
-          //   ...item,
-          //   time: item.timecard.date
-          // }));
-
     } else {
       console.warn('NoahFace data not available');
     }
