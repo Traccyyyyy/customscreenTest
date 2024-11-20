@@ -27,15 +27,13 @@ export class WorkedHours extends LitElement {
 
         }
         .event-row {
-            display: grid;
-            grid-template-columns: 600px 1fr;
             align-items: center;
             padding: 1rem;
             border-bottom: 1px solid #eee;
         }
         .event-item {
             display: grid;
-            grid-template-columns: 1fr 1fr 3fr;
+            grid-template-columns: 0.2fr 0.2fr 0.8fr;
             gap: 1rem;
             padding: 0.5rem;
         }
@@ -230,10 +228,10 @@ export class WorkedHours extends LitElement {
                                     <span>${item.time.toLocaleString()}</span>
                                     <span>${item.type}</span> 
                                     <span>${item.detail}</span>
+                                    <button @click=${() => this.startEditing(item)}>
+                                        Edit Details
+                                    </button>     
                                 </div>
-                                <button @click=${() => this.startEditing(item)}>
-                                    Edit Details
-                                </button>     
                             </div>
                             ${this.editingEvent?.eventid === item.eventid ?
                         this.renderDetailForm(item) : ''}

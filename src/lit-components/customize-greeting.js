@@ -79,8 +79,8 @@ export class customizeGreeting extends LitElement {
         <h1>${this.greeting}, ${NoahFace.firstname || 'Guest'},${NoahFace.lastname || 'lastname'}!</h1>
        ${this.showFullName && NoahFace.firstname ? html`<p>First Name: ${NoahFace.firstname}</p>
         <p>Last Name: ${NoahFace.lastname}</p>`:''}
-      ${this.showOrg && NoahFace.org ? html`<p>Organization: ${org}</p>` : ''}
-      ${this.showSite && NoahFace.site ? html`<p>Site: ${site}</p>` : ''}
+      ${this.showOrg && NoahFace.org ? html`<p>Organization: ${NoahFace.org}</p>` : ''}
+      ${this.showSite && NoahFace.site ? html`<p>Site: ${NoahFace.site}</p>` : ''}
       ${this.showTemperature && NoahFace.temperature ? html`
         <p class="temperature">
           Your temperature: ${NoahFace.temperature}°C
