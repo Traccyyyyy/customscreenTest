@@ -54,7 +54,7 @@ export class customizeGreeting extends LitElement {
 
   loadNoahFaceData() {
     if (typeof NoahFace !== 'undefined') {
-       this.noahFaceData = {...window.NoahFace};
+       this.noahFaceData = window.NoahFace;
     } else {
       console.warn('NoahFace data not available');
     }
