@@ -73,7 +73,7 @@ export class customizeGreeting extends LitElement {
   }
 
   render() {
-    const { firstname, lastname, org, site, temperature, elevated, eventtype, eventtime, eventdetails } = this.noahFaceData;
+    // const { firstname, lastname, org, site, temperature, elevated, eventtype, eventtime, eventdetails } = this.noahFaceData;
 
     return html`
         <h1>${this.greeting}, ${window.NoahFace.firstname || 'Guest'}!</h1>
@@ -88,7 +88,7 @@ export class customizeGreeting extends LitElement {
         </p>
       ` : ''}
       ${this.showLastEvent && window.NoahFace.eventtype !==null ? html`
-        <p>Last event: ${window.NoahFace.eventtype} at ${window.NoahFace.eventtime} ${window.NoahFace.eventdetails}</p>
+        <p>Last event: ${window.NoahFace.eventtype} at ${window.NoahFace.eventtime} ${window.NoahFace.eventdetails}${window.NoahFace.firstname}</p>
       ` : ''}
                 ${eventtime ? html`
                     <p><strong>Last Event Time:</strong> ${eventtime}</p>
