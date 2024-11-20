@@ -95,7 +95,6 @@ export class customizeGreeting extends LitElement {
                     <p><strong>Details1:</strong> ${window.NoahFace.details}</p>
                 ` : ''}      
                 
-                <pre> ${JSON.stringify(this.noahFace, null, 2)}</pre> 
       `;
     }
 }
