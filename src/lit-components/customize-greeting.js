@@ -54,7 +54,7 @@ export class customizeGreeting extends LitElement {
 
   loadNoahFaceData() {
     if (typeof NoahFace !== 'undefined') {
-      this.noahFaceData = { ...window.NoahFace};
+      this.noahFaceData = [...window.NoahFace];
           //  this.data = fetchedData.map(item => ({
           //   ...item,
           //   time: item.timecard.date
@@ -80,6 +80,7 @@ export class customizeGreeting extends LitElement {
     const { firstname, lastname, org, site, temperature, elevated, eventtype, eventtime, eventdetails } = this.noahFaceData;
 
     return html`
+    ${this.noahFaceData}
       ${this.showGreeting ? html`<h2>${this.greeting}, ${this.noahFaceData.firstname|| 'Guest'}${this.showFullName && lastname ? ` ${lastname}` : ''}!</h2>` : ''}
       ${this.showFullName && firstname ? html`<p>First Name: ${firstname}</p>
         <p>Last Name: ${lastname}</p>`:''}
