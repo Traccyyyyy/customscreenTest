@@ -76,7 +76,7 @@ export class customizeGreeting extends LitElement {
     const { firstname, lastname, org, site, temperature, elevated, eventtype, eventtime, eventdetails } = this.noahFaceData;
 
     return html`
-        <h1>${this.greeting}, ${window.NoahFace.firstname || 'Guest'},${window.NoahFace.lastname || 'lastname'}!</h1>
+        <h1>${this.greeting}, ${NoahFace.firstname || 'Guest'},${window.NoahFace.lastname || 'lastname'}!</h1>
        ${this.showFullName && firstname ? html`<p>First Name: ${window.NoahFace.firstname}</p>
         <p>Last Name: ${lastname}</p>`:''}
       ${this.showOrg && org ? html`<p>Organization: ${org}</p>` : ''}
