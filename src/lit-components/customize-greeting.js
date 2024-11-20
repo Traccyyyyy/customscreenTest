@@ -87,7 +87,7 @@ export class customizeGreeting extends LitElement {
           ${elevated === 'true' ? html`<span class="elevated"> (Elevated)</span>` : ''}
         </p>
       ` : ''}
-      ${this.showLastEvent && window.NoahFace?.eventtype != null ? html`
+      ${this.showLastEvent ? html`
         <p>Last event: ${window.NoahFace.eventtype || ''} at ${window.NoahFace.eventtime || ''} ${window.NoahFace.eventdetails || ''} ${window.NoahFace.firstname || ''}</p>
     ` : ''}
 
