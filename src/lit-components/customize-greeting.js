@@ -55,6 +55,10 @@ export class customizeGreeting extends LitElement {
   loadNoahFaceData() {
     if (typeof NoahFace !== 'undefined') {
       this.noahFaceData = { ...window.NoahFace};
+          //  this.data = fetchedData.map(item => ({
+          //   ...item,
+          //   time: item.timecard.date
+          // }));
 
     } else {
       console.warn('NoahFace data not available');
@@ -73,10 +77,10 @@ export class customizeGreeting extends LitElement {
   }
 
   render() {
-    const { firstname, lastname, org, site, temperature, elevated, eventtype: type, eventtime, eventdetails: details } = this.noahFaceData;
+    const { firstname, lastname, org, site, temperature, elevated, eventtype, eventtime, eventdetails } = this.noahFaceData;
 
     return html`
-      ${this.showGreeting ? html`<h2>${this.greeting}, ${this.NoahFace.firstname|| 'Guest'}${this.showFullName && lastname ? ` ${lastname}` : ''}!</h2>` : ''}
+      ${this.showGreeting ? html`<h2>${this.greeting}, ${this.noahFaceData.firstname|| 'Guest'}${this.showFullName && lastname ? ` ${lastname}` : ''}!</h2>` : ''}
       ${this.showFullName && firstname ? html`<p>First Name: ${firstname}</p>
         <p>Last Name: ${lastname}</p>`:''}
       ${this.showOrg && org ? html`<p>Organization: ${org}</p>` : ''}
@@ -88,7 +92,7 @@ export class customizeGreeting extends LitElement {
         </p>
       ` : ''}
       ${this.showLastEvent && type !==null ? html`
-        <p>Last event: ${type} at ${eventtime} ${details}</p>
+        <p>Last event: ${this.noahFaceData.eventtype} at ${this.noahFaceData.eventtime} ${this.noahFaceData.eventdetails}</p>
       ` : ''}
                 ${eventtime ? html`
                     <p><strong>Last Event Time:</strong> ${eventtime}</p>
