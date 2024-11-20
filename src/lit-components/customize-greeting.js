@@ -54,7 +54,8 @@ export class customizeGreeting extends LitElement {
 
   loadNoahFaceData() {
     if (typeof NoahFace !== 'undefined') {
-       this.noahFaceData = window.NoahFace;
+      this.noahFaceData = { ...NoahFace };
+
     } else {
       console.warn('NoahFace data not available');
     }
@@ -72,27 +73,27 @@ export class customizeGreeting extends LitElement {
   }
 
   render() {
-    const { firstname, lastname, org, site, temperature, elevated, eventtype, eventtime, eventdetails } = this.noahFaceData;
-    
+    const { firstname, lastname, org, site, temperature, elevated, eventtype: type, eventtime, eventdetails: details } = this.noahFaceData;
+
     return html`
-      ${this.showGreeting ? html`<h2>${this.greeting}, ${window.NoahFace.firstname|| 'Guest'}${this.showFullName && lastname ? ` ${window.NoahFace.lastname}` : ''}!</h2>` : ''}
+      ${this.showGreeting ? html`<h2>${this.greeting}, ${window.NoahFace.firstname || 'Guest'}${this.showFullName && lastname ? ` ${lastname}` : ''}!</h2>` : ''}
       ${this.showFullName && firstname ? html`<p>First Name: ${window.NoahFace.firstname}</p>
-        <p>Last Name: ${window.NoahFace.lastname}</p>`:''}
-      ${this.showOrg && org ? html`<p>Organization: ${window.NoahFace.org}</p>` : ''}
-      ${this.showSite && site ? html`<p>Site: ${window.NoahFace.site}</p>` : ''}
+        <p>Last Name: ${lastname}</p>`:''}
+      ${this.showOrg && org ? html`<p>Organization: ${org}</p>` : ''}
+      ${this.showSite && site ? html`<p>Site: ${site}</p>` : ''}
       ${this.showTemperature && temperature ? html`
         <p class="temperature">
-          Your temperature: ${window.NoahFace.temperature}°C
+          Your temperature: ${temperature}°C
           ${elevated === 'true' ? html`<span class="elevated"> (Elevated)</span>` : ''}
         </p>
       ` : ''}
       ${this.showLastEvent && type !==null ? html`
-        <p>Last event: ${window.NoahFace.eventtype} at ${window.NoahFace.eventtime} ${window.NoahFace.eventdetails}</p>
+        <p>Last event: ${type} at ${eventtime} ${details}</p>
       ` : ''}
                 ${eventtime ? html`
-                    <p><strong>Last Event Time:</strong> ${window.NoahFace.eventtime}</p>
-                    <p><strong>Event Type:</strong> ${window.NoahFace.eventtype}</p>
-                    <p><strong>Details:</strong> ${window.NoahFace.eventdetails}</p>
+                    <p><strong>Last Event Time:</strong> ${eventtime}</p>
+                    <p><strong>Event Type:</strong> ${type}</p>
+                    <p><strong>Details:</strong> ${details}</p>
                 ` : ''}      
      
       `;
