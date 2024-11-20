@@ -88,15 +88,15 @@ export class customizeGreeting extends LitElement {
         </p>
       ` : ''}
       ${this.showLastEvent ? html`
-        <p>Last event: ${window.NoahFace.type || 'No type'} </p>
+        <p>Last event: ${window.NoahFace.eventtype || 'No type'} </p>
            <p><strong>Last Event Time:</strong> ${window.NoahFace.eventtime}</p>
                     <p><strong>Details:</strong> ${window.NoahFace.eventdetails}</p>
                     <p><strong>Event Type1:</strong> ${window.NoahFace.type}</p>
                     <p><strong>Details1:</strong> ${window.NoahFace.details}</p>
                 ` : ''}      
-     
+                
+                <pre> ${JSON.stringify(this.noahFace, null, 2)}</pre> 
       `;
-       <pre> ${JSON.stringify(this.noahFace, null, 2)})</pre> 
     }
 }
 
