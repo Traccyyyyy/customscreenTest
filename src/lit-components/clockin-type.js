@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
-
+import {NoahFaceHandler} from '../service/noahface-handler.js';
 
 class clockInType extends LitElement {
 
@@ -42,22 +42,22 @@ class clockInType extends LitElement {
       gap: 15px;
     }
     button {
-     padding: 15px 20px;
-      font-size: 12px;
+      font-size: 10px;
       color: #333;
       font-weight: bold;
       border: none;
       border-radius: 5px;
-      background-color: #90dd90;
-\      cursor: pointer;
+      background-color: #98d7c2;
+\     cursor: pointer;
       transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #7CCD7C;
+      background-color: #7bb9a5;
     }
     .main-button {
-      margin: 20px;
-      width:80px;
+      margin: 10px;
+      width:40px;
+      padding: 10px 3px;
     }
     .selected-option {
       margin-top: 10px;
@@ -67,7 +67,7 @@ class clockInType extends LitElement {
   static properties = {
     _isDialogOpen: { type: Boolean, state: true },
     _selectedOption: { type: String, state: true },
-    _clockIn:{type: Boolean},
+    _clockedIn:{type: Boolean},
     eventDetails: { type: Object },
     _error:{ type: String, state: true }
   };
@@ -75,7 +75,7 @@ class clockInType extends LitElement {
     super();
     this._isDialogOpen = false;
     this._selectedOption = '';
-    this._clockIn= false;
+    this._clockedIn= false;
     this.eventDetails= null;
     this._error = '';
   }
@@ -120,15 +120,16 @@ class clockInType extends LitElement {
 
   logClockIn() {
     if (this._selectedOption !== '') {
-      this.eventDetails = { type: 'clockIn', details: `${this._selectedOption}` };
-      this.dispatchEvent(new CustomEvent('noahface-log-event', { 
-        detail: this.eventDetails,
-        bubbles: true, 
-        composed: true,
-      }));
-      
-      this._clockIn = true;
+      this.eventDetails = { type: 'clockin', details: `${this._selectedOption}` };
+      // this.dispatchEvent(new CustomEvent('noahface-log-event', { 
+      //   detail: this.eventDetails,
+      //   bubbles: true, 
+      //   composed: true,
+      // }));
+      NoahFaceHandler.logEvent('clockin',`${this._selectedOption}`);
+      this._clockedIn = true;
       this._error = '';
+      console.log(this.eventDetails);
     } else {
       this._error = 'Please select your work type!';
     }

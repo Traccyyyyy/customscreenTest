@@ -12,9 +12,8 @@
     // Import our custom components
     import './lit-components/nav-menu.js';
     import './service/noahface-handler.js';
-    import './lit-components/clockin-type.js';
     import './lit-components/customize-greeting.js';
-    import './lit-components/clock-out.js';
+    import './lit-components/worked-hours.js';
   </script>
   </head>
 
@@ -22,39 +21,19 @@
 
 <body>
   <nav-menu></nav-menu>
-  <!-- User Greeting Component -->
   <customize-greeting></customize-greeting>
-
-  <!-- NoahFace Message Handler (invisible component) -->
-  <noahface-handler></noahface-handler>
-  
   <div class="container">
-    <div class="buttons">
-      <clockin-type class="clockIn"></clockin-type>
-      <clock-out class="clockOut"></clock-out>
-    </div>
+    <!-- NoahFace Message Handler (invisible component) -->
+    <noahface-handler></noahface-handler>
+
+    <!-- User Greeting Component -->
     
+    <worked-hours></worked-hours>
   </div>
 
-  <script>
-    const clockInElement = document.querySelector('.clockIn');
-    const clockOutElement = document.querySelector('.clockOut');
-
-    clockInElement.addEventListener('noahface-log-event', (event) => {
-      if (event.detail.type === 'clockin') {
-        clockOutElement._clockedIn = true;
-      }
-    });
-
-    clockOutElement.addEventListener('noahface-log-event', (event) => {
-      if (event.detail.type === 'clockout') {
-        clockInElement._clockIn = false;
-      }
-    });
-  </script>
 
 
-  <script>
+  <!-- <script>
     // This script can be used to simulate NoahFace data for testing purposes
     // Comment out or remove in production
     if (typeof NoahFace === 'undefined') {
@@ -70,7 +49,7 @@
         details: ""
       };
     }
-  </script>
+  </script> -->
 
   <script>
     // Helper function to get query parameters from URL
@@ -108,7 +87,7 @@
         });
         document.dispatchEvent(eventData); 
 
-        console.log('Event dispatched');// Change from window to document
+        console.log('Event dispatched',data);// Change from window to document
         return data;
       } catch (error) {
         console.error('Error fetching events:', error);

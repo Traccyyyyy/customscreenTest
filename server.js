@@ -75,6 +75,10 @@ const app = uWS.App()
     // If not in cache, return 404
     res.writeStatus('404').end('Not Found');
   });
+// Need to add PATCH endpoint 
+
+
+
 
 // Cache files on startup
 console.log('Caching files from:', SRC_DIR);

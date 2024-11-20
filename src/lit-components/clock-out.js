@@ -12,17 +12,20 @@ class ClockOut extends LitElement {
       font-family: Arial, sans-serif;
     }
     button {
-     padding: 15px 20px;
-      font-size: 12px;
+      padding: 10px 3px;
+      font-size: 10px;
       color: #333;
       font-weight: bold;
       border: none;
       border-radius: 5px;
-      background-color: #90dd90;
+      background-color:#98d7c2;
       cursor: pointer;
       transition: background-color 0.3s ease;
-    margin: 20px;
-        width:80px;
+      margin: 10px;
+      width:40px;
+    }
+    button:hover {
+      background-color: #7bb9a5;
     }
   `;
 
@@ -40,15 +43,23 @@ class ClockOut extends LitElement {
   }
 
   handleClockOut() {
-    
-    this.dispatchEvent(new CustomEvent('noahface-log-event', { 
-      detail: { type:'clockOut', details },
-      bubbles: true, 
-      composed: true
-    }));
-
-    this._clockedIn = false;
+    if(this.clockedIn){
+      this.dispatchEvent(new CustomEvent('noahface-log-event', { 
+        detail: { type:'clockOut'},
+        bubbles: true, 
+        composed: true
+      }));
+  
+      this._clockedIn = false;
+      console.log(`You have clock out.`);
+    }
+      else {
+        console.log(`You haven't clock in.`);
+      }
   }
+
+    
+
 }
 
 customElements.define('clock-out', ClockOut);

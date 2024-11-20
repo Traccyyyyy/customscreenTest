@@ -31,7 +31,7 @@ export class NoahFaceHandler extends LitElement {
     }
 
     // Request user info
-    this.noahFace.postMessage({ action: 'getuser' });
+    // this.noahFace.postMessage({ action: 'getuser' });
   }
 
   handleUserInfo(userInfo) {

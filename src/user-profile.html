@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <!-- Import your customize-greeting component -->
+    <script type="module">
+        import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+        // Import our custom components
+        import './lit-components/nav-menu.js';
+        import './service/noahface-handler.js';
+        import './lit-components/customize-greeting.js';
+      </script>   
+</head>
+<body>
+    <nav-menu></nav-menu>
+    <div class="container">
+        <customize-greeting
+            showGreeting="true"
+            showFullName="true"
+            showOrg="true"
+            showSite="true"
+            showTemperature="true"
+            showLastEvent="true">
+        </customize-greeting>
+        </div>
+    <!-- <script>
+        // This script can be used to simulate NoahFace data for testing purposes
+        // Comment out or remove in production
+        if (typeof NoahFace === 'undefined') {
+          window.NoahFace = {
+            org: "Test Organization",
+            site: "Test Site",
+            firstname: "John",
+            lastname: "Doe",
+            temperature: "36.6",
+            elevated: "false",
+            type: "",
+            eventtime: new Date().toLocaleTimeString(),
+            details: ""
+          };
+        }
+      </script> -->
+</body>
+</html>

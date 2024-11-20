@@ -12,46 +12,25 @@
     // Import our custom components
     import './lit-components/nav-menu.js';
     import './service/noahface-handler.js';
-    import './lit-components/clockin-type.js';
     import './lit-components/customize-greeting.js';
-    import './lit-components/clock-out.js';
+    import './lit-components/timecards.js';
   </script>
   </head>
 
 
 
 <body>
-  <nav-menu></nav-menu>
-  <!-- User Greeting Component -->
-  <customize-greeting></customize-greeting>
+    <div class="container">
+    <customize-greeting></customize-greeting>
+      <nav-menu></nav-menu>
+    <!-- NoahFace Message Handler (invisible component) -->
+    <noahface-handler></noahface-handler>
 
-  <!-- NoahFace Message Handler (invisible component) -->
-  <noahface-handler></noahface-handler>
-  
-  <div class="container">
-    <div class="buttons">
-      <clockin-type class="clockIn"></clockin-type>
-      <clock-out class="clockOut"></clock-out>
-    </div>
+    <!-- User Greeting Component -->
     
+    <worked-hours></worked-hours>
   </div>
 
-  <script>
-    const clockInElement = document.querySelector('.clockIn');
-    const clockOutElement = document.querySelector('.clockOut');
-
-    clockInElement.addEventListener('noahface-log-event', (event) => {
-      if (event.detail.type === 'clockin') {
-        clockOutElement._clockedIn = true;
-      }
-    });
-
-    clockOutElement.addEventListener('noahface-log-event', (event) => {
-      if (event.detail.type === 'clockout') {
-        clockInElement._clockIn = false;
-      }
-    });
-  </script>
 
 
   <script>
@@ -78,7 +57,7 @@
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(param);
     };
-    const API_URL = 'https://syncshift.smartplace.ai/sync/events';
+    const API_URL = 'https://syncshift.smartplace.ai/sync/timecards';
     const token = getQueryParam('token');
 
     const fetchEvents = async (userId) => {
@@ -108,8 +87,7 @@
         });
         document.dispatchEvent(eventData); 
 
-        console.log('Event dispatched');// Change from window to document
-        return data;
+        console.log('Event dispatched',data);
       } catch (error) {
         console.error('Error fetching events:', error);
         throw error;

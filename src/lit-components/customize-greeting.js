@@ -4,18 +4,13 @@ export class customizeGreeting extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: Arial, sans-serif;
       padding: 20px;
-      background-color: #f0f0f0;
-      border-radius: 8px;
-    }
-    h1 {
+      background-color: #ddffe7;
       text-align:center;
-      color: #333;
-      margin-bottom: 10px;
+      border-radius: 10px;
     }
     p {
-      color: #666;
+      color: #4a6f75;
       margin: 5px 0;
       text-align:center;
     }
@@ -48,6 +43,7 @@ export class customizeGreeting extends LitElement {
     this.showSite = true;
     this.showTemperature = false;
     this.showLastEvent = true;
+
   }
 
   connectedCallback() {
@@ -77,10 +73,12 @@ export class customizeGreeting extends LitElement {
   }
 
   render() {
-    const { firstname, lastname, org, site, temperature, elevated, type, eventtime, details } = this.noahFaceData;
+    const { firstname, lastname, org, site, temperature, elevated, eventtype: type, eventtime, eventdetails: details } = this.noahFaceData;
 
     return html`
-      ${this.showGreeting ? html`<h1>${this.greeting}, ${firstname || 'Guest'}${this.showFullName && lastname ? ` ${lastname}` : ''}!</h1>` : ''}
+      ${this.showGreeting ? html`<h2>${this.greeting}, ${firstname || 'Guest'}${this.showFullName && lastname ? ` ${lastname}` : ''}!</h2>` : ''}
+      ${this.showFullName && firstname ? html`<p>First Name: ${firstname}</p>
+        <p>Last Name: ${lastname}</p>`:''}
       ${this.showOrg && org ? html`<p>Organization: ${org}</p>` : ''}
       ${this.showSite && site ? html`<p>Site: ${site}</p>` : ''}
       ${this.showTemperature && temperature ? html`
@@ -92,6 +90,11 @@ export class customizeGreeting extends LitElement {
       ${this.showLastEvent && type !==null ? html`
         <p>Last event: ${type} at ${eventtime} ${details}</p>
       ` : ''}
+                ${eventtime ? html`
+                    <p><strong>Last Event Time:</strong> ${eventtime}</p>
+                    <p><strong>Event Type:</strong> ${type}</p>
+                    <p><strong>Details:</strong> ${details}</p>
+                ` : ''}      
      
       `;
       // <pre> ${JSON.stringify(this.noahFace, null, 2)})</pre> 
