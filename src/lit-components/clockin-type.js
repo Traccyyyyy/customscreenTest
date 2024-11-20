@@ -13,7 +13,7 @@ class clockInType extends LitElement {
      justify-content: center;
       align-items: center;
     }
-    .dialog-overlay {
+    .dialog-overlay,.popup-overlay {
       position: fixed;
       top: 0;
       left: 0;
@@ -24,7 +24,7 @@ class clockInType extends LitElement {
       justify-content: center;
       align-items: center;
     }
-    .dialog {
+    .dialog,.popup-error {
       background-color: white;
       padding: 20px;
       border-radius: 10px;
@@ -36,7 +36,7 @@ class clockInType extends LitElement {
       text-align: center;
       margin-bottom: 20px;
     }
-    .options-container {
+    .options-container{
       display: flex;
       flex-direction: column;
       gap: 15px;
@@ -78,9 +78,11 @@ class clockInType extends LitElement {
     this._clockedIn= false;
     this.eventDetails= null;
     this._error = '';
+    this.noahFaceHandler = new NoahFaceHandler(); 
   }
   connectedCallback() {
     super.connectedCallback();
+
     
   }
 
@@ -104,7 +106,23 @@ class clockInType extends LitElement {
       </div>
     `;
   }
-
+  _renderError (){
+  return html`
+  <div class="popup-overlay">
+    <div class="popup-error">
+      ${this._error}
+    </div>
+  </div>
+` ;
+}
+setError(message) {
+  this._error = message;
+  if (message) {
+    setTimeout(() => {
+      this._error = '';
+    }, 2000); // Error will disappear after 3 seconds
+  }
+}
   _openDialog() {
     this._isDialogOpen = true;
   }
@@ -121,17 +139,20 @@ class clockInType extends LitElement {
   logClockIn() {
     if (this._selectedOption !== '') {
       this.eventDetails = { type: 'clockin', details: `${this._selectedOption}` };
-      // this.dispatchEvent(new CustomEvent('noahface-log-event', { 
-      //   detail: this.eventDetails,
-      //   bubbles: true, 
-      //   composed: true,
-      // }));
-      NoahFaceHandler.logEvent('clockin',`${this._selectedOption}`);
+      this.dispatchEvent(new CustomEvent('noahface-log-event', { 
+        detail: this.eventDetails,
+        bubbles: true, 
+        composed: true,
+      }));
+      this.noahFaceHandler.logEvent('clockin', `${this._selectedOption}`);
       this._clockedIn = true;
       this._error = '';
+      this._selectedOption = '';
       console.log(this.eventDetails);
+      console.log(this._clockedIn);
     } else {
-      this._error = 'Please select your work type!';
+      this.setError('Please select your work type!');
+    return;
     }
   }
 
@@ -139,10 +160,10 @@ class clockInType extends LitElement {
     return html`
     <div id= 'main'>
       <button class="main-button" @click=${this._openDialog}>Work type</button>
-      ${this._selectedOption ? html`<p>Selected: ${this._selectedOption}</p>` : ''}
       ${this._isDialogOpen ? this._renderDialog() : ''}
       <button class="main-button" @click=${this.logClockIn}>Clock In</button>
-       ${this._error ? html`<p class="error">${this._error}</p>` : ''}
+             ${this._error ? this._renderError():''}
+ 
     </div>
       `;
   }

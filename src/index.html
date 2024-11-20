@@ -39,16 +39,18 @@
   <script>
     const clockInElement = document.querySelector('.clockIn');
     const clockOutElement = document.querySelector('.clockOut');
-
+    console.log('Found elements:', !!clockInElement, !!clockOutElement); // Debug log 6
     clockInElement.addEventListener('noahface-log-event', (event) => {
       if (event.detail.type === 'clockin') {
+        console.log('Event received:', event); // Debug log 7
         clockOutElement._clockedIn = true;
-      }
-    });
+        console.log(clockOutElement._clockedIn);}
+      },true); 
+    
 
     clockOutElement.addEventListener('noahface-log-event', (event) => {
       if (event.detail.type === 'clockout') {
-        clockInElement._clockIn = false;
+        clockInElement._clockedIn = false;
       }
     });
   </script>
